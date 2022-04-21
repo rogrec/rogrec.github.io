@@ -1,0 +1,120 @@
+1. 避免卡顿，让系统更流畅
+设置 -》窗口管理器微调 -》合成器-》把“启用显示合成”勾掉
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 显示全部放大2倍
+设置 -》外观 -》设置-》窗口缩放x2
+然后在terminal里输入reboot，重启
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 选择国内最快的源
+sudo pacman-mirrors -i -c China -m rank
+2.设置 archlinuxcn 源,arch4edu源:
+sudo mousepad /etc/pacman.conf
+加入以下内容
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+#中科大源
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+#清华源
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+3.更新源列表
+sudo pacman-mirrors -g
+4.更新pacman数据库并全面更新系统
+sudo pacman -Syyu
+5.防止PGP签名错误
+sudo pacman -S archlinuxcn-keyring
+6.建议在软件包管理器中全部更新一下(否则有些包安装时可能提示缺少库)，然后重新启动
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1.安装AUR包管理工具
+sudo pacman -S yay
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1.安装中文输入法
+sudo pacman -S fcitx5 fcitx5-configtool fcitx5-qt fcitx5-gtk fcitx5-chinese-addons fcitx5-material-color
+2.添加输入法配置文件
+sudo mousepad ~/.xprofile
+加入以下内容
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+3. 候选字体大小在“配置”-》“附加组件”-》“经典用户界面”中更改
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1.安装wps中文版
+在软件包管理器中安装wps-office-cn、wps-office-mui-zh-cn和ttf-wps-fonts
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+sudo pacman -S filezilla
+yay thonny
+sudo pip3 install -i https://pypi.douban.com/simple esptool
+sudo pip3 install -i https://pypi.douban.com/simple pandas
+sudo pip3 install -i https://pypi.douban.com/simple folium
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1.drivehq地址
+66.220.9.50
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 给非root用户永久赋予USB读写权限($USER改为实际用户名)
+sudo usermod -aG uucp $USER
+然后重启即可
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 将主目录改为英文
+sudo pacman -S xdg-user-dirs-gtk
+export LANG=en_US
+xdg-user-dirs-gtk-update
+export LANG=zh_CN.UTF-8
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 赋予访问wlan的权限，从而可以调用pywifi
+sudo chmod -R 757 /var/run/wpa_supplicant
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 桌面美化
+从仓库安装mojave-gtk-theme-git和mojave-ct-icon-theme-git
+但是github不稳定，如果失败，就安装archlinuxcn中的
+mojave-gtk-theme-git和mojave-circle-icon-theme-git
+2. 在外观设置中更新主题和图标
+3. 更新启动器图标，apple logo的svg放在ftp上
+4. 安装plank，并将plank设为开机启动
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 为chromium开启深色主题模式
+chrome://flags/#enable-force-dark
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+1. 安装 debtap
+yay -S debtap
+
+2. 更换debtap源
+sugo gedit /bin/debtap
+
+因此，我们只需要将/bin/debtap文件中的包含有
+http://ftp.debian.org/
+字样的部分替换为任意国内镜像站的域名例如中科大源的
+https://mirrors.ustc.edu.cn/
+
+同理将后文中的ubuntu源的替换为国内镜像源即可
+搜索debtap文件中的
+http://archive.ubuntu.com/
+替换为
+https://mirrors.ustc.edu.cn/
+
+另外提前下载好以下文件master.tar.gz
+https://github.com/helixarch/virtual-packages-list-generator/archive/master.tar.gz
+下载好后
+sudo cp master.tar.gz /var/cache/debtap/
+然后再执行下一步
+
+2. 更新 debtap
+sudo debtap -u
+过程中会要求输入包名，随意输入就好。还要求输入license,输入GPL就好。
+3. 使用案例
+sudo debtap XXX.deb
+此过程进行 deb 包转为 tar.xz 包
+sudo pacman -U XXX.tar.xz
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+Manjaro滚动升级之后经常会出现不能启动的问题，提示如下：
+ROOT_MNJRO contains a file system with errors, check forced.
+Inode ******* has the casefold flag set but is not a directory.
+ROOT_MNJRO:UNEXPECTED INCONSISTENCY: RUN fsck MANUALLY.
+ERROR: Bailing out. Run 'fsck /dev/****' manually.
+sh: can't access tty; job control turned off
+
+问题在于，这个情况下键盘是不灵光的，没有办法执行fsck。
+最终的解决方案是拿掉sd卡，装入读卡器，在另外一台linux电脑上执行
+sudo fsck -AR -y /dev/sdb2
+当然也有可能是
+sudo fsck -AR -y /dev/sdc2
+这要看ROOT_MNJRO具体在dev的哪个位置。
+注意：sd卡必须是unmount状态，否则fsck无法执行。
