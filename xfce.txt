@@ -113,8 +113,8 @@ sh: can't access tty; job control turned off
 
 问题在于，这个情况下键盘是不灵光的，没有办法执行fsck。
 最终的解决方案是拿掉sd卡，装入读卡器，在另外一台linux电脑上执行
-sudo fsck -AR -y /dev/sdb2
+sudo fsck -y /dev/sdb2
 当然也有可能是
-sudo fsck -AR -y /dev/sdc2
+sudo fsck -y /dev/sdc2
 这要看ROOT_MNJRO具体在dev的哪个位置。
 注意：sd卡必须是unmount状态，否则fsck无法执行。
